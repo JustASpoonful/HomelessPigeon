@@ -1,4 +1,4 @@
-(function() {
+  (function() {
             var img = document.createElement('img');
             var idleSrc = 'https://homelesspigeon.vercel.app/PigeonIdle.gif';
             var walkSrc = 'https://homelesspigeon.vercel.app/PigeonWalk.gif';
@@ -74,4 +74,23 @@
             setInterval(function() {
                 if (!chasing) {
                     // Idle chance, keep walking sound logic
-                     speed = NOMath.random() < 0.5 ? 0 : 
+                    speed = Math.random() < 0.5 ? 0 : 5; // 50% chance to be idle
+                    if (speed === 0 && !isRareIdle) {
+                        rareGifs.forEach(function(gif) {
+                            if (Math.random() < gif.chance) {
+                                img.src = gif.src;
+                                isRareIdle = true;
+                            }
+                        });
+                    }
+                }
+            }, 1000);
+
+            var honkSound = new Audio('https://pugware.github.io/honk0in0honk/HONKsounds/honk-sound.mp3');
+            setInterval(function() {
+                if (Math.random() < 0.05) {
+                    honkSound.play();
+                }
+            }, 1000);
+        })();
+    
