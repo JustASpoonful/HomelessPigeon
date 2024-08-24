@@ -1,16 +1,21 @@
 {
   "manifest_version": 3,
-  "name": "Pigeon and Cursor Extension",
+  "name": "Homeless Pigeon Extension",
   "version": "1.0",
-  "description": "A Chrome Extension with a pigeon and custom cursor interaction.",
-  "action": {
-    "default_popup": "index.html",
-  },
+  "description": "A fun pigeon extension with custom cursor functionality.",
   "permissions": [
     "activeTab"
   ],
   "background": {
     "service_worker": "background.js"
   },
-  
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["script.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
 }
