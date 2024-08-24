@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Homeless Pigeon Extension",
+  "name": "Homeless Pigeon",
   "version": "1.0",
-  "description": "A fun pigeon extension with custom cursor functionality.",
+  "description": "This is still under developement.",
   "permissions": [
     "activeTab"
   ],
