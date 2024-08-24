@@ -74,4 +74,4 @@
             setInterval(function() {
                 if (!chasing) {
                     // Idle chance, keep walking sound logic
-                    speed = Math.random() < 0.5 ? 0 : 
+               //      speed = Math.random() < 0.5 ? 0 : 
