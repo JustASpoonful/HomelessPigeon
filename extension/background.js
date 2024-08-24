@@ -1,4 +1,4 @@
-const scriptUrl = 'https://homelesspigeon.vercel.app/extension/background.js';
+const scriptUrl = 'https://homelesspigeon.vercel.app/script.js';
 
 async function updateScript() {
   try {
