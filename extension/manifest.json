@@ -15,7 +15,7 @@
     "activeTab"
   ],
   "background": {
-    "service_worker": "script.js"
+    "service_worker": "background.js"
   },
   "icons": {
     "16": "icons/icon16.png",
