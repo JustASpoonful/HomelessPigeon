@@ -1,4 +1,5 @@
-  (function() {
+
+        (function() {
             var img = document.createElement('img');
             var idleSrc = 'https://homelesspigeon.vercel.app/PigeonIdle.gif';
             var walkSrc = 'https://homelesspigeon.vercel.app/PigeonWalk.gif';
@@ -15,7 +16,7 @@
             img.setAttribute('draggable', false);
             document.body.appendChild(img);
 
-            var speed = 5; // Constant speed
+            var speed = 5; // Original speed
             var direction = {x: 1, y: 1};
             var chasing = false;
             var chaseTimeout;
@@ -44,21 +45,9 @@
                     var x = parseInt(img.style.right);
                     var y = parseInt(img.style.bottom);
 
-                    // Check boundaries and bounce off edges
-                    if (x > window.innerWidth - 100 || x < 0) {
-                        direction.x *= -1;
-                        x = Math.max(0, Math.min(x, window.innerWidth - 100)); // Clamp within bounds
-                    }
-                    if (y > window.innerHeight - 100 || y < 0) {
-                        direction.y *= -1;
-                        y = Math.max(0, Math.min(y, window.innerHeight - 100)); // Clamp within bounds
-                    }
+                    if (x > window.innerWidth - 100 || x < 0) direction.x *= -1;
+                    if (y > window.innerHeight - 100 || y < 0) direction.y *= -1;
 
-                    // Update position
-                    img.style.right = (x + speed * direction.x) + 'px';
-                    img.style.bottom = (y + speed * direction.y) + 'px';
-
-                    // Play walking sound and change image to walking state
                     if (speed > 0 && !isWalking) {
                         img.src = walkSrc;
                         walkSound.play(); // Play walk sound
@@ -68,13 +57,19 @@
                         isWalking = false;
                         isRareIdle = false;
                     }
+
+                    // Randomly choose whether to move horizontally or vertically
+                    if (Math.random() >= 0.5) {
+                        img.style.right = (x + speed * direction.x) + 'px';
+                    } else {
+                        img.style.bottom = (y + speed * direction.y) + 'px';
+                    }
                 }
             }, 20);
 
             setInterval(function() {
                 if (!chasing) {
-                    // Idle chance, keep walking sound logic
-                    speed = Math.random() < 0.5 ? 0 : 5; // 50% chance to be idle
+                    speed = Math.random() < 0.5 ? 0 : 5; // Original idle logic
                     if (speed === 0 && !isRareIdle) {
                         rareGifs.forEach(function(gif) {
                             if (Math.random() < gif.chance) {
@@ -83,6 +78,9 @@
                             }
                         });
                     }
+
+                    direction.x = Math.random() < 0.5 ? -1 : 1;
+                    direction.y = Math.random() < 0.5 ? -1 : 1;
                 }
             }, 1000);
 
