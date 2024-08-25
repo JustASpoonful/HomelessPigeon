@@ -60,7 +60,7 @@
                 isRareIdle = false;
             }
 
-            if (Math.random() >= 0.5) {
+            if (Math.random() >= 0.8) {
                 img.style.right = (x + speed * direction.x) + 'px';
             } else {
                 img.style.bottom = (y + speed * direction.y) + 'px';
