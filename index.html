@@ -1,16 +1,33 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homeless Pigeon</title>
-  </head>
-
-  <body>
-    <p>This website will soon be filled with a dashboard and a whole lot of other stuff. I will add a way to customize personality and add extremely advanced features, here is a hint for the future,
-    This pigeon might reward robux via group payouts in the future *Wink *wink ;)</p>
-    <p>Also, The pigeon you are seeing, his name is Telamon, he is used to test out the beta previews.</p>
-    <br>
-    <p>Please note: This pigeon is very</p>
-  </body>
-
-  <script src="script.js"></script>
-
+    <meta property="og:title" content="Homeless Pigeon">
+    <meta property="og:description" content="A website for the 'Homeless Pigeon' project. Download the Chrome extension and get instructions on how to import it.">
+    <meta property="og:image" content="path/to/your/image.jpg">
+    <meta property="og:url" content="https://yourwebsite.com">
+    
+</head>
+<body>
+    <header>
+        <h1>Homeless Pigeon</h1>
+    </header>
+    <button id="download-btn">Download</button>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <h2>Instructions to Import Chrome Extension</h2>
+            <p>1. Download the extension file.<br>
+               2. Open Chrome and navigate to chrome://extensions/<br>
+               3. Enable "Developer mode" in the top right corner.<br>
+               4. Click on "Load unpacked" and select the downloaded file.</p>
+            <a href="path/to/your/extension.zip" download>
+                <button id="download-file-btn">Download Extension</button>
+            </a>
+        </div>
+    </div>
+    
+</body>
 </html>
