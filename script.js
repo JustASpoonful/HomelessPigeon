@@ -47,9 +47,12 @@
             if (x > window.innerWidth - 100 || x < 0) direction.x *= -1;
             if (y > window.innerHeight - 100 || y < 0) direction.y *= -1;
 
+            // Flip the pigeon horizontally based on the x direction
+            img.style.transform = direction.x === 1 ? 'scaleX(-1)' : 'scaleX(1)';
+
             if (speed > 0 && !isWalking) {
                 img.src = walkSrc;
-                walkSound.play(); // Play walk sound
+                walkSound.play();
                 isWalking = true;
             } else if (speed === 0 && isWalking) {
                 img.src = idleSrc;
