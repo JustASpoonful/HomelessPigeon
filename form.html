@@ -1,90 +1,105 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Form</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form with Discord Submission</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    </head>
-
-    <body>
-        <h3 class="Title">Homeless Pigeon Form</h3>
-        <br>
-        <br>
-        <div class="container">
-            <br>
-            <h4></h4>
-            <br>
-            <label for="pet-select">-Choose a Option:-</label>
-
-            <select name="pets" id="pet-select">
-                <option value="">--Please choose an option--</option>
-                <option value="bug">There is a Bug</option>
-                <option value="requestupdate">I would really like to request a update</option>
-                <option value="developerrequest">I would like to help Update this Pigeon</option>
-               
-            </select>
-        </div>
-
-         <div class="container">
-            <h4></h4>
-            <br>
-            <p>Describe what option you have chosen</p>
-            <input type="text" placeholder="Type here" id="input"/>
-            
-        </div>
-
-        <style>
-            html {
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: rgb(34,193,195);
-background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(0,0,0,1) 100%);
-                width: 200%;
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(0,0,0,1) 100%);
 }
 
-h4 {
- position: fixed;
-    align-content: flex-start;
-    margin: auto;
-    margin-left: auto;
-    left: 50%;
-    right: 50%;
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
- .container {
-    background-color: rgb(0, 25, 94);
-    width: 33%;
-    height: 20%;
-    border-radius: 5%;
-    margin: auto;
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form h2 {
+    margin-bottom: 20px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+select, input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    background-color: #34c1c3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #28a0a2;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Choose an Option</h2>
+        <form class="form" id="submissionForm">
+            <label for="options">Select an option:</label>
+            <select id="options" name="options" required>
+                <option value="" disabled selected>Select an option</option>
+                <option value="Option 1">Option 1</option>
+                <option value="Option 2">Option 2</option>
+                <option value="Option 3">Option 3</option>
+                <option value="Option 4">Option 4</option>
+                <option value="Option 5">Option 5</option>
+            </select>
+            <label for="reason">Why did you choose this option?</label>
+            <input type="text" id="reason" name="reason" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+    document.getElementById('submissionForm').addEventListener('submit', function(event) {
+    event.preventDefault();
     
-    
-    
-}
-.title {
-    position: fixed;
-    align-content: flex-start;
-    margin: auto;
-    margin-left: auto;
-    left: 50%;
-    right: 50%;
+    const selectedOption = document.getElementById('options').value;
+    const reason = document.getElementById('reason').value;
 
-}
+    const payload = {
+        content: `Selected Option: ${selectedOption}\nReason: ${reason}`
+    };
 
-p {
+    fetch('https://discord.com/api/webhooks/YOUR_WEBHOOK_URL_HERE', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+    })
+    .then(response => {
+        </script>
 
-    color: azure;
-}
-
-.title {
-    color: azure;
-    width: 32%;
-    left: 254;
-
-}
-
-h4 {
-    left: 350;
-    width: 90;
-    color: azure;
-}p
-        </style>
-    </body>
-
+</body>
 </html>
