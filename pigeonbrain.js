@@ -4,7 +4,7 @@
     var walkSrc = 'https://homelesspigeon.vercel.app/PigeonWalk.gif';
     var walkSound = new Audio('https://homelesspigeon.vercel.app/walk.wav');
     var rareGifs = [
-        { src: 'https://homelesspigeon.vercel.app/robloxtested.png', chance: 50 },  
+        { src: 'https://homelesspigeon.vercel.app/robloxtested.png', chance: 0.001 },  
         { src: 'https://homelesspigeon.vercel.app/PigeonRare2.gif', chance: 0.000001 } 
     ];
     img.src = idleSrc;
