@@ -1,11 +1,11 @@
 (function() {
     var img = document.createElement('img');
-    var idleSrc = 'https://homelesspigeon.vercel.app/PigeonIdle.gif';
-    var walkSrc = 'https://homelesspigeon.vercel.app/PigeonWalk.gif';
-    var walkSound = new Audio('https://homelesspigeon.vercel.app/walk.wav');
+    var idleSrc = 'https://homelesspigeon.vercel.app/core/PigeonIdle.gif';
+    var walkSrc = 'https://homelesspigeon.vercel.app/core/PigeonWalk.gif';
+    var walkSound = new Audio('https://homelesspigeon.vercel.app/core/Walk.wav');
     var rareGifs = [
-        { src: 'https://homelesspigeon.vercel.app/robloxtested.png', chance: 0.001 },  
-        { src: 'https://homelesspigeon.vercel.app/PigeonRare2.gif', chance: 0.000001 } 
+        { src: 'https://homelesspigeon.vercel.app/core/robloxtested.png', chance: 0.001 },  
+        { src: 'https://homelesspigeon.vercel.app/core/PigeonRare2.gif', chance: 0.000001 } 
     ];
     img.src = idleSrc;
     img.style.position = 'fixed';
@@ -85,7 +85,7 @@
         }
     }, 1000);
 
-    var honkSound = new Audio('nah.wav');
+    var honkSound = new Audio('core/nah.wav');
     setInterval(function() {
         if (Math.random() < 0.05) {
             honkSound.play();
