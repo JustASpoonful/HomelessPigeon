@@ -1,94 +1,98 @@
-(function() {
-    var img = document.createElement('img');
-    var idleSrc = 'https://homelesspigeon.vercel.app/core/PigeonIdle.gif';
-    var walkSrc = 'https://homelesspigeon.vercel.app/core/PigeonWalk.gif';
-    var walkSound = new Audio('https://homelesspigeon.vercel.app/core/Walk.wav');
-    var rareGifs = [
-        { src: 'https://homelesspigeon.vercel.app/core/robloxtested.png', chance: 0.001 },  
-        { src: 'https://homelesspigeon.vercel.app/core/PigeonRare2.gif', chance: 0.000001 } 
-    ];
-    img.src = idleSrc;
-    img.style.position = 'fixed';
-    img.style.bottom = '0px';
-    img.style.right = '0px';
-    img.style.zIndex = 9999;
-    img.setAttribute('draggable', false);
-    document.body.appendChild(img);
+// Variables
+var speed = 5; // Customizable speed
+var pigeonElement = document.createElement('img');
+var isIdle = true;
+var isRunningAway = false;
+var gifChance = 0.05; // Customize rarity for rare GIF
+var rainbowChance = 0.01; // Very rare chance to turn screen rainbow
+var mudDuration = 5000; // 5 seconds
+var rainbowDuration = 5000; // 5 seconds
 
-    var speed = 5;
-    var direction = {x: 1, y: 1};
-    var chasing = false;
-    var chaseTimeout;
-    var isWalking = false;
-    var isRareIdle = false;
+// Pigeon setup
+pigeonElement.src = 'https://homelesspigeon.vercel.app/core/PigeonIdle.gif';
+pigeonElement.style.position = 'absolute';
+pigeonElement.style.zIndex = '9999';
+document.body.appendChild(pigeonElement);
 
-    document.addEventListener('mousemove', function(e) {
-        if (chasing) {
-            var x = e.clientX;
-            var y = e.clientY;
-            img.style.right = (window.innerWidth - x - 50) + 'px';
-            img.style.bottom = (window.innerHeight - y - 50) + 'px';
+// Random movement function
+function movePigeon() {
+    if (!isRunningAway) {
+        let x = Math.random() * window.innerWidth;
+        let y = Math.random() * window.innerHeight;
+        
+        // Check boundaries
+        if (x > window.innerWidth - 100) x = window.innerWidth - 100; // Adjust for pigeon size
+        if (y > window.innerHeight - 100) y = window.innerHeight - 100;
+
+        pigeonElement.style.left = x + 'px';
+        pigeonElement.style.top = y + 'px';
+
+        // Flip horizontally
+        if (Math.random() < 0.5) {
+            pigeonElement.style.transform = 'scaleX(-1)';
+        } else {
+            pigeonElement.style.transform = 'scaleX(1)';
         }
-    });
-
-    img.addEventListener('click', function() {
-        chasing = true;
-        clearTimeout(chaseTimeout);
-        chaseTimeout = setTimeout(function() {
-            chasing = false;
-        }, 3000);
-    });
-
-    setInterval(function() {
-        if (!chasing) {
-            var x = parseInt(img.style.right);
-            var y = parseInt(img.style.bottom);
-
-            if (x > window.innerWidth - 100 || x < 0) direction.x *= -1;
-            if (y > window.innerHeight - 100 || y < 0) direction.y *= -1;
-
-            // Flip the pigeon horizontally based on the x direction
-            img.style.transform = direction.x === 1 ? 'scaleX(1)' : 'scaleX(-1)';
-
-            if (speed > 0 && !isWalking) {
-                img.src = walkSrc;
-                walkSound.play();
-                isWalking = true;
-            } else if (speed === 0 && isWalking) {
-                img.src = idleSrc;
-                isWalking = false;
-                isRareIdle = false;
-            }
-
-            if (Math.random() >= 0.8) {
-                img.style.right = (x + speed * direction.x) + 'px';
-            } else {
-                img.style.bottom = (y + speed * direction.y) + 'px';
-            }
+        
+        // Change GIF for walking
+        if (isIdle) {
+            pigeonElement.src = 'https://homelesspigeon.vercel.app/core/PigeonWalk.gif';
+            isIdle = false;
         }
-    }, 20);
-
-    setInterval(function() {
-        if (!chasing) {
-            speed = Math.random() < 0.5 ? 0 : 5;
-            if (speed === 0 && !isRareIdle) {
-                rareGifs.forEach(function(gif) {
-                    if (Math.random() < gif.chance) {
-                        img.src = gif.src;
-                        isRareIdle = true;
-                    }
-                });
-            }
-
-            direction.x = Math.random() < 0.5 ? -1 : 1;
-            direction.y = Math.random() < 0.5 ? -1 : 1;
+        
+        // Check for rare GIF
+        if (Math.random() < gifChance) {
+            pigeonElement.src = 'YOUR_RARE_GIF_URL_HERE'; // Add your rare GIF URL
+            setTimeout(() => {
+                pigeonElement.src = 'https://homelesspigeon.vercel.app/core/PigeonWalk.gif'; // Back to walking
+            }, 2000); // Adjust duration as needed
         }
-    }, 1000);
 
-    var honkSound = new Audio('core/nah.wav');
-    setInterval(function() {
-        if (Math.random() < 0.05) {
-            honkSound.play();
+        // Check for rainbow effect
+        if (Math.random() < rainbowChance) {
+            document.body.style.backgroundColor = 'rainbow'; // Implement rainbow effect
+            setTimeout(() => {
+                document.body.style.backgroundColor = ''; // Reset background
+            }, rainbowDuration);
         }
-    }, 1000);
-})();
+
+        // Random sound
+        if (Math.random() < 0.1) { // 10% chance to play sound
+            var audio = new Audio('https://homelesspigeon.vercel.app/core/nah.wav');
+            audio.play();
+        }
+
+        // Move pigeon every speed milliseconds
+        setTimeout(movePigeon, speed * 100);
+    }
+}
+
+// Click event to run away
+pigeonElement.addEventListener('click', function(event) {
+    isRunningAway = true;
+    var deltaX = event.clientX - pigeonElement.offsetLeft;
+    var deltaY = event.clientY - pigeonElement.offsetTop;
+    
+    // Move in the opposite direction
+    var angle = Math.atan2(deltaY, deltaX);
+    var x = Math.cos(angle) * speed * 10; // Adjust the run speed
+    var y = Math.sin(angle) * speed * 10;
+
+    pigeonElement.style.left = Math.max(0, Math.min(window.innerWidth - 100, pigeonElement.offsetLeft - x)) + 'px';
+    pigeonElement.style.top = Math.max(0, Math.min(window.innerHeight - 100, pigeonElement.offsetTop - y)) + 'px';
+
+    setTimeout(() => {
+        isRunningAway = false;
+    }, 4000); // Run away duration
+});
+
+// Mud tracking effect
+function mudTracking() {
+    pigeonElement.style.filter = 'blur(5px)'; // Simulate mud
+    setTimeout(() => {
+        pigeonElement.style.filter = ''; // Remove mud effect
+    }, mudDuration);
+}
+
+// Call move function
+movePigeon();
