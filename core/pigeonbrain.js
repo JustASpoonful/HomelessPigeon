@@ -1,5 +1,5 @@
 // Variables
-var speed = 5; // Customizable speed
+var speed = 1; // Customizable speed (lower value for smoother walking)
 var pigeonElement = document.createElement('img');
 var isIdle = true;
 var isRunningAway = false;
@@ -14,23 +14,25 @@ pigeonElement.style.position = 'absolute';
 pigeonElement.style.zIndex = '9999';
 document.body.appendChild(pigeonElement);
 
+// Pigeon position
+var targetX = Math.random() * (window.innerWidth - 100);
+var targetY = Math.random() * (window.innerHeight - 100);
+
 // Random movement function
 function movePigeon() {
     if (!isRunningAway) {
-        let targetX = Math.random() * (window.innerWidth - 100);
-        let targetY = Math.random() * (window.innerHeight - 100);
-
         let deltaX = targetX - pigeonElement.offsetLeft;
         let deltaY = targetY - pigeonElement.offsetTop;
         let distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        
-        // Normalize the movement
-        if (distance > 1) {
-            let moveX = (deltaX / distance) * speed;
-            let moveY = (deltaY / distance) * speed;
 
-            pigeonElement.style.left = Math.max(0, Math.min(window.innerWidth - 100, pigeonElement.offsetLeft + moveX)) + 'px';
-            pigeonElement.style.top = Math.max(0, Math.min(window.innerHeight - 100, pigeonElement.offsetTop + moveY)) + 'px';
+        // Normalize movement
+        if (distance > 1) {
+            pigeonElement.style.left = Math.max(0, Math.min(window.innerWidth - 100, pigeonElement.offsetLeft + (deltaX / distance) * speed)) + 'px';
+            pigeonElement.style.top = Math.max(0, Math.min(window.innerHeight - 100, pigeonElement.offsetTop + (deltaY / distance) * speed)) + 'px';
+        } else {
+            // Set a new target when close to the current one
+            targetX = Math.random() * (window.innerWidth - 100);
+            targetY = Math.random() * (window.innerHeight - 100);
         }
 
         // Flip horizontally
@@ -68,8 +70,8 @@ function movePigeon() {
             audio.play();
         }
 
-        // Move pigeon every 50 ms
-        setTimeout(movePigeon, 50);
+        // Continue moving
+        requestAnimationFrame(movePigeon);
     }
 }
 
@@ -78,17 +80,17 @@ pigeonElement.addEventListener('click', function(event) {
     isRunningAway = true;
     var deltaX = event.clientX - pigeonElement.offsetLeft;
     var deltaY = event.clientY - pigeonElement.offsetTop;
-    
+
     // Move in the opposite direction
     var angle = Math.atan2(deltaY, deltaX);
-    var x = Math.cos(angle) * speed * 10; // Adjust the run speed
-    var y = Math.sin(angle) * speed * 10;
+    var runX = Math.cos(angle) * speed * 10; // Adjust the run speed
+    var runY = Math.sin(angle) * speed * 10;
 
-    // Run away smoothly
     function runAway() {
+        pigeonElement.style.left = Math.max(0, Math.min(window.innerWidth - 100, pigeonElement.offsetLeft - runX)) + 'px';
+        pigeonElement.style.top = Math.max(0, Math.min(window.innerHeight - 100, pigeonElement.offsetTop - runY)) + 'px';
+
         if (isRunningAway) {
-            pigeonElement.style.left = Math.max(0, Math.min(window.innerWidth - 100, pigeonElement.offsetLeft - x)) + 'px';
-            pigeonElement.style.top = Math.max(0, Math.min(window.innerHeight - 100, pigeonElement.offsetTop - y)) + 'px';
             requestAnimationFrame(runAway);
         }
     }
