@@ -23,15 +23,6 @@
             var isWalking = false;
             var isRareIdle = false;
 
-            document.addEventListener('mousemove', function(e) {
-                if (chasing) {
-                    var x = e.clientX;
-                    var y = e.clientY;
-                    img.style.right = (window.innerWidth - x - 50) + 'px';
-                    img.style.bottom = (window.innerHeight - y - 50) + 'px';
-                }
-            });
-
             setInterval(function() {
                 if (!chasing) {
                     var x = parseInt(img.style.right);
