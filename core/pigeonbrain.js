@@ -15,40 +15,12 @@
     img.setAttribute('draggable', false);
     document.body.appendChild(img);
 
-    // Create mud element
-    var mud = document.createElement('div');
-    mud.style.position = 'fixed';
-    mud.style.width = '20px'; // Width of the mud trail
-    mud.style.height = '10px'; // Height of the mud trail
-    mud.style.backgroundColor = 'brown'; // Brown color for mud
-    mud.style.borderRadius = '10px'; // Make it oval
-    mud.style.display = 'none'; // Initially hidden
-    mud.style.zIndex = 9998; // Just below the pigeon
-    document.body.appendChild(mud);
-
     var speed = 5;
     var direction = {x: 1, y: 1};
     var chasing = false;
     var isWalking = false;
     var isRareIdle = false;
     var isTrackingInMud = false;
-
-    function trackInMud() {
-        if (Math.random() < 0.5) { // 50% chance
-            isTrackingInMud = true;
-            mud.style.display = 'block'; // Show mud
-            
-            // Position mud slightly behind the pigeon
-            var pigeonRect = img.getBoundingClientRect();
-            mud.style.bottom = (pigeonRect.bottom + 5) + 'px'; // Position mud just behind pigeon
-            mud.style.right = (pigeonRect.right - 15) + 'px'; // Center mud under pigeon
-
-            setTimeout(() => {
-                isTrackingInMud = false;
-                mud.style.display = 'none'; // Hide mud after 5 seconds
-            }, 5000); // Mud lasts for 5 seconds
-        }
-    }
 
     setInterval(function() {
         if (!chasing) {
