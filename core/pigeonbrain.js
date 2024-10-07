@@ -16,6 +16,7 @@
     document.body.appendChild(img);
 
     var speed = 5;
+    var chasing = false;
     var Bird = 1;
     var direction = {x: 1, y: 1};
     var isWalking = false;
