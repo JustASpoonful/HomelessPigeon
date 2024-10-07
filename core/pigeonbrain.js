@@ -15,7 +15,7 @@
     img.setAttribute('draggable', false);
     document.body.appendChild(img);
 
-    var speed = 5;
+    var speed = 3;
     var chasing = false;
     var Bird = 1;
     var direction = {x: 1, y: 1};
