@@ -1,17 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "Pigeon Pet",
+  "name": "Homeless Pigeon",
   "version": "1.0",
-  "description": "A cute pigeon walks on any website.",
-  "permissions": [],
-  "host_permissions": [
-    "<all_urls>"
-  ],
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["background.js"],
-      "run_at": "document_idle"
-    }
-  ]
+  "description": "Homeless Pigeon isn't just a browser extension, its a pet in your browser extension",
+  "permissions": ["scripting", "tabs", "activeTab"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Inject Pigeon"
+  }
 }
