@@ -1,21 +1,17 @@
 {
   "manifest_version": 3,
-  "name": "Homeless Pigeon",
+  "name": "Pigeon Pet",
   "version": "1.0",
-  "description": "This is still under developement.",
-  "permissions": [
-    "activeTab"
+  "description": "A cute pigeon walks on any website.",
+  "permissions": [],
+  "host_permissions": [
+    "<all_urls>"
   ],
-  "background": {
-    "service_worker": "background.js"
-  },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["background.js"]
+      "js": ["pigeon.js"],
+      "run_at": "document_idle"
     }
-  ],
-  "action": {
-    "default_popup": "index.html"
-  }
+  ]
 }
