@@ -1,14 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "Homeless Pigeon",
-  "version": "1.0",
-  "description": "Homeless Pigeon isn't just a browser extension, its a pet in your browser extension",
-  "permissions": ["scripting", "tabs", "activeTab"],
-  "host_permissions": ["<all_urls>"],
-  "background": {
-    "service_worker": "background.js"
-  },
-  "action": {
-    "default_title": "Inject Pigeon"
-  }
+  "name": "Pigeon Everywhere (CSP‑proof)",
+  "version": "1.0.0",
+  "description": "Injects pigeonbrain.js everywhere, regardless of CSP.",
+  "permissions": ["storage"],
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["background.js"],
+    "run_at": "document_idle",
+    "world": "MAIN"
+  }],
+  "icons": { "48": "icons/pigeon-48.png" }
 }
