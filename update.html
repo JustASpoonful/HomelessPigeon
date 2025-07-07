@@ -47,11 +47,11 @@
 </head>
 <body>
 
-    <div id="status">❌ No Update Available</div>
+    <div id="status">Update Available!</div>
     <button id="downloadBtn">Download Update File</button>
 
     <script>
-        const CURRENT_VERSION = 'v1.0.1';
+        const CURRENT_VERSION = 'v1.0.0';
 
         const statusDiv = document.getElementById('status');
         const downloadBtn = document.getElementById('downloadBtn');
@@ -62,7 +62,7 @@
                 statusDiv.textContent = '✅ Update File Installed';
                 statusDiv.className = 'installed';
             } else {
-                statusDiv.textContent = '❌ No Update Available';
+                statusDiv.textContent = 'Update Available!';
                 statusDiv.className = 'not-installed';
             }
         }
