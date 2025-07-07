@@ -1,18 +1,93 @@
-<html>
-  <head>
-    <title>Updates - PIGEON</title>
-  </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homeless Pigeon Update!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-  <body>
-   <h3>Change Log</h3>
-      <p>- Update Form.</p>
-    
-    <h3>Future Updates</h3>
-      <p>Dashboard for your Pigeon.</p>
-    <h4>More Birds to choose from</h4>  
-      <p>Exclusive Birds!</p>
-      <p>You would be able to trade your Birds!</p>
-      <p>Different birds have different rarities.</p>
-      <p>Collect Birds!</p>
-  </body>
+        #status {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+
+        .installed {
+            color: green;
+        }
+
+        .not-installed {
+            color: red;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 1em;
+            border: none;
+            border-radius: 8px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="status">❌ No Update Installed</div>
+    <button id="downloadBtn">Download Update File</button>
+
+    <script>
+        // Set your current update version here
+        const CURRENT_VERSION = 'v1.0.0';
+
+        const statusDiv = document.getElementById('status');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        // Check saved version on page load
+        const savedVersion = localStorage.getItem('installedUpdateVersion');
+
+        function updateStatus() {
+            if (savedVersion === CURRENT_VERSION) {
+                statusDiv.textContent = '✅ Update File Installed';
+                statusDiv.className = 'installed';
+            } else {
+                statusDiv.textContent = '❌ No Update Installed';
+                statusDiv.className = 'not-installed';
+            }
+        }
+
+        updateStatus();
+
+        downloadBtn.addEventListener('click', () => {
+            // Simulate file download (replace with your real file URL if needed)
+            const fileUrl = 'data:text/plain,This is your update file content for version ' + CURRENT_VERSION;
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.download = 'Update-' + CURRENT_VERSION + '.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Save the installed version to localStorage
+            localStorage.setItem('installedUpdateVersion', CURRENT_VERSION);
+            updateStatus();
+        });
+
+    </script>
+
+</body>
 </html>
