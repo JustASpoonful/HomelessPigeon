@@ -1,17 +1,10 @@
-// background.js
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.status === 'complete' && /^https?:/.test(tab.url)) {
-    // fetch the pigeon code
-    fetch('https://homelesspigeon.vercel.app/core/pigeonbrain.js')
-      .then(res => res.text())
-      .then(source => {
-        // inject into the page's MAIN world
-        chrome.scripting.executeScript({
-          target: { tabId: tabId },
-          world: 'MAIN',
-          func: new Function(source)
-        });
-      })
-      .catch(console.error);
+chrome.storage.local.get("remoteCode", (result) => {
+  if (result.remoteCode) {
+    const script = document.createElement("script");
+    script.textContent = result.remoteCode;
+    document.documentElement.appendChild(script);
+    script.remove(); // Clean up after injection
+  } else {
+    console.warn("⚠️ No remote code found in storage");
   }
 });
