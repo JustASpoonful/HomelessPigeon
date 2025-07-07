@@ -47,7 +47,7 @@
 </head>
 <body>
 
-    <div id="status">❌ No Update Installed</div>
+    <div id="status">❌ No Update Available</div>
     <button id="downloadBtn">Download Update File</button>
 
     <script>
@@ -65,7 +65,7 @@
                 statusDiv.textContent = '✅ Update File Installed';
                 statusDiv.className = 'installed';
             } else {
-                statusDiv.textContent = '❌ No Update Installed';
+                statusDiv.textContent = '❌ No Update Available';
                 statusDiv.className = 'not-installed';
             }
         }
